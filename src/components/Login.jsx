@@ -1,18 +1,25 @@
 import axios from 'axios';
 import { useState } from 'react'
+import { addUser } from '../utils/userSlice';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { BASEURL } from '../utils/constants';
+
 
 export const Login = () => {
   const [emailId, setEmailId] = useState("darekarkiran704@gmail.com");
   const [password, setPassword] = useState("Kiran###007");
-
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const handleLogin = async () =>{
     try {
-      const res = await axios.post("http://localhost:3000/login", {
+      const res = await axios.post(BASEURL + "/login", {
             emailId,
             password
           }, { withCredentials: true });
 
-          console.log(res);
+          dispatch(addUser(res.data));
+          return navigate("/");
     } catch (error) {
       console.error(error)
     }
@@ -20,7 +27,7 @@ export const Login = () => {
   }
   return (
     <div className="hero bg-base-200 min-h-screen">
-      <div className="hero-content flex-col lg:flex-row-reverse">
+      <div className="hero-content flex-col">
         <div className="text-center lg:text-left">
           <h1 className="text-5xl font-bold">Login now!</h1>
         </div>

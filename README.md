@@ -9,7 +9,8 @@ git remote add origin https://github.com/KiranDarekar/devTinder-web.git
 - create new component rafce  short cut for component creation
 - we will use browser router
 
-
+- install reactredux  @reduxjs/toolkit => 
+- configureStore => Provider => createSlice  => add reducer to store 
 body 
  navbar
  feed
