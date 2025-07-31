@@ -13,7 +13,7 @@ export const Feed = () => {
     try {
       const res = await axios.get(BASEURL + "/feed", { withCredentials: true });
       console.log("API raw response:", res.data);
-      const actualFeedData = res?.data?.data || res?.data;
+      const actualFeedData = Array.isArray(res.data.data) ? res.data.data : res.data;
       console.log("Dispatching feed:", actualFeedData);
       dispatch(addFeed(actualFeedData));
     } catch (error) {
@@ -29,6 +29,7 @@ export const Feed = () => {
     console.log("Feed state updated:", feed);
   }, [feed]);
 
+ 
   return (
     feed && feed.length > 0 && (
       <div className='flex justify-center my-10'>
