@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useState } from 'react'
+import { use, useState } from 'react'
 import { addUser } from '../utils/userSlice';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -9,6 +9,7 @@ import { BASEURL } from '../utils/constants';
 export const Login = () => {
   const [emailId, setEmailId] = useState("darekarkiran704@gmail.com");
   const [password, setPassword] = useState("Kiran###007");
+  const [error, setError] = useState("")
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleLogin = async () =>{
@@ -21,6 +22,7 @@ export const Login = () => {
           dispatch(addUser(res.data));
           return navigate("/");
     } catch (error) {
+      setError(error?.response?.data || "somthing goes wrong");
       console.error(error)
     }
     
@@ -39,6 +41,7 @@ export const Login = () => {
               <label className="label">Password</label>
               <input type="password" value={password} onChange={(e)=> setPassword(e.target.value)} className="input" placeholder="Password" />
               <div><a className="link link-hover">Forgot password?</a></div>
+              <p className='text-red-900'>{ error} </p>
               <button className="btn btn-neutral mt-4" onClick={handleLogin}>Login</button>
             </fieldset>
           </div>
