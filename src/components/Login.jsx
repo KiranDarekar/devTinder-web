@@ -11,7 +11,7 @@ export const Login = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [password, setPassword] = useState("Kiran###007");
-  const [isLoginFrom, setIsLoginFrom] = useState(false)
+  const [isLoginFrom, setIsLoginFrom] = useState(true)
   const [error, setError] = useState("")
   const dispatch = useDispatch();
   const navigate = useNavigate();

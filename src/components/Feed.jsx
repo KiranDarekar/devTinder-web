@@ -29,9 +29,11 @@ export const Feed = () => {
     console.log("Feed state updated:", feed);
   }, [feed]);
 
- if (!feed || feed.length === 0) return null;
-  if (!feed || feed.length === 0) return null;
 
+  if(!feed) return;
+
+    if(feed.length === 0) return <h1> no requests found</h1>
+    
 return (
   <div className="flex flex-wrap justify-center gap-4 my-10">
     {feed.map(user => (
