@@ -18,6 +18,7 @@ export const EditProfile = ({user}) => {
     const [showTost, setshowTost] = useState(false)
     const dispatch = useDispatch();
     const saveProfile = async () =>{
+        setError("");
         try {
           const res = await axios.patch(BASEURL + "/profile/edit", {
                 photoUrl,
@@ -27,6 +28,7 @@ export const EditProfile = ({user}) => {
                 about
               }, { withCredentials: true });
             setshowTost(true);
+            
             setTimeout(() => {
                 setshowTost(false);
             }, 3000);
@@ -89,7 +91,11 @@ export const EditProfile = ({user}) => {
                         <div className="div">
                             <span className="text-base div-text">Gender</span>
                         </div>
-                        <input type="text" value={gender} onChange={(e)=> setGender(e.target.value)} placeholder="Gender" className="w-full input input-bordered" />
+                        <div><span className="form-check-label" htmlFor="genderMale">Male </span>
+                            <input type="radio" name="gendorRadio" id="genderMale" value="Male" className="radio radio-xs" onChange={(e)=> setGender(e.target.value)} defaultChecked />
+                            <span htmlFor="genderFemale"  className="form-check-label ml-2">Female </span>
+<input type="radio" name="gendorRadio" className="radio radio-xs" id="genderFemale" value="Female"   onChange={(e)=> setGender(e.target.value)} />
+                        </div>
                     </div>
                     <div>
                         <div className="div">
