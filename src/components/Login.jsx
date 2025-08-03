@@ -13,6 +13,8 @@ export const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleLogin = async () =>{
+    setError("");
+
     try {
       const res = await axios.post(BASEURL + "/login", {
             emailId,
@@ -23,7 +25,6 @@ export const Login = () => {
           return navigate("/");
     } catch (error) {
       setError(error?.response?.data || "somthing goes wrong");
-      console.error(error)
     }
     
   }
