@@ -28,7 +28,7 @@ export const Connections = () => {
 
     if(connections.length === 0) return <h1> no connections found</h1>
   return (
-    <div className='p-10 my-10'>
+    <div className='p-10 my-10 w-30' >
         <h1>
             Connections
         </h1>
