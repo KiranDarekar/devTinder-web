@@ -8,7 +8,10 @@ import { BASEURL } from '../utils/constants';
 
 export const Login = () => {
   const [emailId, setEmailId] = useState("darekarkiran704@gmail.com");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [password, setPassword] = useState("Kiran###007");
+  const [isLoginFrom, setIsLoginFrom] = useState(false)
   const [error, setError] = useState("")
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -28,22 +31,58 @@ export const Login = () => {
     }
     
   }
+
+  const handleSignUp = async () =>{
+    setError("");
+
+    try {
+      const res = await axios.post(BASEURL + "/signup", {
+            firstName,
+            lastName,
+            emailId,
+            password
+          }, { withCredentials: true });
+
+          console.log(res.data.data);
+
+          dispatch(addUser(res.data.data));
+          return navigate("/profile");
+    } catch (error) {
+      setError(error?.response?.data || "somthing goes wrong");
+    }
+    
+  }
   return (
     <div className="hero bg-base-200 min-h-screen">
       <div className="hero-content flex-col">
         <div className="text-center lg:text-left">
-          <h1 className="text-5xl font-bold">Login now!</h1>
+          <h1 className="text-3xl font-bold">
+            {isLoginFrom ? 'Login now!' : 'Sign up from' }</h1>
         </div>
         <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
           <div className="card-body">
             <fieldset className="fieldset">
-              <label className="label">Email Id : {emailId}</label>
+              { !isLoginFrom && <>
+              <label className="label">First Name : </label>
+              <input type="text" value={firstName} onChange={(e)=> setFirstName(e.target.value)} className="input" placeholder="Frist Name" />
+              <label className="label">Last Name : </label>
+              <input type="text" value={lastName} onChange={(e)=> setLastName(e.target.value)} className="input" placeholder="Frist Name" />
+              </>}
+              
+              <label className="label">Email Id : </label>
               <input type="text" value={emailId} onChange={(e)=> setEmailId(e.target.value)} className="input" placeholder="Email" />
               <label className="label">Password</label>
               <input type="password" value={password} onChange={(e)=> setPassword(e.target.value)} className="input" placeholder="Password" />
-              <div><a className="link link-hover">Forgot password?</a></div>
+              <div>
+                <p className="link link-hover" onClick={ () => setIsLoginFrom((value) => !value)} > 
+                {isLoginFrom ? 'New User? Sign Up User' : 'Existing User? login Here' } 
+                </p>
+              </div>
               <p className='text-red-900'>{ error} </p>
-              <button className="btn btn-neutral mt-4" onClick={handleLogin}>Login</button>
+              <button className="btn btn-neutral mt-4"
+              onClick={isLoginFrom ? handleLogin : handleSignUp }>
+                {isLoginFrom ? 'Login' : 'Sign up' } 
+              </button>
             </fieldset>
           </div>
         </div>

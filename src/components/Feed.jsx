@@ -6,7 +6,7 @@ import { BASEURL } from '../utils/constants';
 import { UserCard } from './UserCard';
 
 export const Feed = () => {
-  const feed = useSelector((store) => store.Feed);
+  const feed = useSelector((store) => store.feed);
   const dispatch = useDispatch();
 
   const getFeed = async () => {
@@ -29,13 +29,17 @@ export const Feed = () => {
     console.log("Feed state updated:", feed);
   }, [feed]);
 
- 
-  return (
-    feed && feed.length > 0 && (
-      <div className='flex justify-center my-10'>
-        <UserCard user={feed[0]} />
-      </div>
-    )
-  );
+ if (!feed || feed.length === 0) return null;
+  if (!feed || feed.length === 0) return null;
+
+return (
+  <div className="flex flex-wrap justify-center gap-4 my-10">
+    {feed.map(user => (
+      <UserCard key={user._id} user={user} />
+    ))}
+  </div>
+);
+
+
 };
 
