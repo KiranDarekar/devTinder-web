@@ -7,10 +7,10 @@ import { BASEURL } from '../utils/constants';
 
 
 export const Login = () => {
-  const [emailId, setEmailId] = useState("darekarkiran704@gmail.com");
+  const [emailId, setEmailId] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [password, setPassword] = useState("Kiran###007");
+  const [password, setPassword] = useState("");
   const [isLoginFrom, setIsLoginFrom] = useState(true)
   const [error, setError] = useState("")
   const dispatch = useDispatch();
